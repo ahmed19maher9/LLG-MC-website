@@ -98,6 +98,54 @@
             background: rgba(255, 255, 255, 0.95);
         }
         
+        /* Slideshow Styles */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+        
+        .thumbnail {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .thumbnail:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+        
+        .thumbnail.active {
+            opacity: 1;
+            border-color: #9333ea;
+            transform: scale(1.05);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
         @media (max-width: 768px) {
             .hero-title {
                 font-size: 2.5rem;
@@ -118,6 +166,7 @@
                 
                 <div class="hidden md:flex space-x-8">
                     <a href="#home" class="nav-link text-gray-700 hover:text-purple-600 transition">Home</a>
+                    <a href="#gallery" class="nav-link text-gray-700 hover:text-purple-600 transition">Gallery</a>
                     <a href="#features" class="nav-link text-gray-700 hover:text-purple-600 transition">Features</a>
                     <a href="#pricing" class="nav-link text-gray-700 hover:text-purple-600 transition">Pricing</a>
                     <a href="#download" class="nav-link text-gray-700 hover:text-purple-600 transition">Download</a>
@@ -132,6 +181,7 @@
             <!-- Mobile Menu -->
             <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
                 <a href="#home" class="block py-2 text-gray-700 hover:text-purple-600 transition">Home</a>
+                <a href="#gallery" class="block py-2 text-gray-700 hover:text-purple-600 transition">Gallery</a>
                 <a href="#features" class="block py-2 text-gray-700 hover:text-purple-600 transition">Features</a>
                 <a href="#pricing" class="block py-2 text-gray-700 hover:text-purple-600 transition">Pricing</a>
                 <a href="#download" class="block py-2 text-gray-700 hover:text-purple-600 transition">Download</a>
@@ -196,6 +246,63 @@
                                 <div class="text-sm text-gray-600">AGPL v3 Licensed</div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Screenshot Gallery Section -->
+    <section id="gallery" class="py-20 bg-gradient-to-br from-gray-900 to-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Application Screenshots</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Take a tour of LLG Media Center's powerful interface and features
+                </p>
+            </div>
+            
+            <!-- Slideshow Container -->
+            <div class="relative max-w-6xl mx-auto">
+                <!-- Main Slideshow -->
+                <div class="relative bg-black rounded-2xl overflow-hidden shadow-2xl" style="padding-bottom: 56.25%;">
+                    <div id="slideshow-container" class="absolute inset-0">
+                        <!-- Slides will be dynamically inserted here -->
+                    </div>
+                    
+                    <!-- Navigation Arrows -->
+                    <button id="prev-slide" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-20 backdrop-blur-md text-white p-3 rounded-full hover:bg-opacity-30 transition-all duration-300 z-10">
+                        <i class="fas fa-chevron-left text-xl"></i>
+                    </button>
+                    <button id="next-slide" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-20 backdrop-blur-md text-white p-3 rounded-full hover:bg-opacity-30 transition-all duration-300 z-10">
+                        <i class="fas fa-chevron-right text-xl"></i>
+                    </button>
+                    
+                    <!-- Slide Counter -->
+                    <div class="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full text-sm font-medium">
+                        <span id="current-slide">1</span> / <span id="total-slides">10</span>
+                    </div>
+                </div>
+                
+                <!-- Thumbnail Navigation -->
+                <div class="mt-8 grid grid-cols-5 md:grid-cols-10 gap-2" id="thumbnail-container">
+                    <!-- Thumbnails will be dynamically inserted here -->
+                </div>
+                
+                <!-- Slideshow Controls -->
+                <div class="mt-6 flex justify-center items-center space-x-4">
+                    <button id="play-pause-btn" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition flex items-center space-x-2">
+                        <i class="fas fa-pause"></i>
+                        <span>Pause</span>
+                    </button>
+                    <div class="flex items-center space-x-2 text-white">
+                        <label for="speed-control" class="text-sm">Speed:</label>
+                        <select id="speed-control" class="bg-gray-700 text-white px-3 py-1 rounded border border-gray-600 focus:outline-none focus:border-purple-500">
+                            <option value="1000">Fast (1s)</option>
+                            <option value="2000">Normal (2s)</option>
+                            <option value="3000" selected>Slow (3s)</option>
+                            <option value="5000">Very Slow (5s)</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -715,6 +822,182 @@
             setTimeout(() => {
                 document.body.style.opacity = '1';
             }, 100);
+        });
+        
+        // Slideshow functionality
+        class ScreenshotSlideshow {
+            constructor() {
+                this.images = [
+                    'images/Screenshot (131).png',
+                    'images/Screenshot (132).png',
+                    'images/Screenshot (133).png',
+                    'images/Screenshot (134).png',
+                    'images/Screenshot (135).png',
+                    'images/Screenshot (136).png',
+                    'images/Screenshot (137).png',
+                    'images/Screenshot (138).png',
+                    'images/Screenshot (139).png',
+                    'images/Screenshot 2026-02-03 130442.png'
+                ];
+                
+                this.currentIndex = 0;
+                this.isPlaying = true;
+                this.intervalId = null;
+                this.slideSpeed = 3000;
+                
+                this.init();
+            }
+            
+            init() {
+                this.createSlides();
+                this.createThumbnails();
+                this.setupEventListeners();
+                this.updateSlideCounter();
+                this.startSlideshow();
+            }
+            
+            createSlides() {
+                const container = document.getElementById('slideshow-container');
+                
+                this.images.forEach((imageSrc, index) => {
+                    const slide = document.createElement('div');
+                    slide.className = `slide ${index === 0 ? 'active' : ''}`;
+                    slide.innerHTML = `<img src="${imageSrc}" alt="Screenshot ${index + 1}" loading="lazy">`;
+                    container.appendChild(slide);
+                });
+                
+                this.slides = container.querySelectorAll('.slide');
+            }
+            
+            createThumbnails() {
+                const thumbnailContainer = document.getElementById('thumbnail-container');
+                
+                this.images.forEach((imageSrc, index) => {
+                    const thumbnail = document.createElement('div');
+                    thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+                    thumbnail.innerHTML = `<img src="${imageSrc}" alt="Thumbnail ${index + 1}" loading="lazy">`;
+                    thumbnail.addEventListener('click', () => this.goToSlide(index));
+                    thumbnailContainer.appendChild(thumbnail);
+                });
+                
+                this.thumbnails = thumbnailContainer.querySelectorAll('.thumbnail');
+            }
+            
+            setupEventListeners() {
+                // Navigation buttons
+                document.getElementById('prev-slide').addEventListener('click', () => this.previousSlide());
+                document.getElementById('next-slide').addEventListener('click', () => this.nextSlide());
+                
+                // Play/Pause button
+                const playPauseBtn = document.getElementById('play-pause-btn');
+                playPauseBtn.addEventListener('click', () => this.togglePlayPause());
+                
+                // Speed control
+                document.getElementById('speed-control').addEventListener('change', (e) => {
+                    this.slideSpeed = parseInt(e.target.value);
+                    if (this.isPlaying) {
+                        this.stopSlideshow();
+                        this.startSlideshow();
+                    }
+                });
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.previousSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                    if (e.key === ' ') {
+                        e.preventDefault();
+                        this.togglePlayPause();
+                    }
+                });
+                
+                // Touch/swipe support for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                const slideshowContainer = document.getElementById('slideshow-container');
+                
+                slideshowContainer.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+                
+                slideshowContainer.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    this.handleSwipe();
+                });
+                
+                this.handleSwipe = () => {
+                    if (touchEndX < touchStartX - 50) this.nextSlide();
+                    if (touchEndX > touchStartX + 50) this.previousSlide();
+                };
+            }
+            
+            updateSlideCounter() {
+                document.getElementById('current-slide').textContent = this.currentIndex + 1;
+                document.getElementById('total-slides').textContent = this.images.length;
+            }
+            
+            showSlide(index) {
+                // Hide current slide
+                this.slides[this.currentIndex].classList.remove('active');
+                this.thumbnails[this.currentIndex].classList.remove('active');
+                
+                // Show new slide
+                this.currentIndex = index;
+                this.slides[this.currentIndex].classList.add('active');
+                this.thumbnails[this.currentIndex].classList.add('active');
+                
+                this.updateSlideCounter();
+            }
+            
+            nextSlide() {
+                const nextIndex = (this.currentIndex + 1) % this.images.length;
+                this.showSlide(nextIndex);
+            }
+            
+            previousSlide() {
+                const prevIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+                this.showSlide(prevIndex);
+            }
+            
+            goToSlide(index) {
+                this.showSlide(index);
+            }
+            
+            startSlideshow() {
+                if (this.isPlaying) {
+                    this.intervalId = setInterval(() => this.nextSlide(), this.slideSpeed);
+                }
+            }
+            
+            stopSlideshow() {
+                if (this.intervalId) {
+                    clearInterval(this.intervalId);
+                    this.intervalId = null;
+                }
+            }
+            
+            togglePlayPause() {
+                this.isPlaying = !this.isPlaying;
+                const playPauseBtn = document.getElementById('play-pause-btn');
+                const icon = playPauseBtn.querySelector('i');
+                const text = playPauseBtn.querySelector('span');
+                
+                if (this.isPlaying) {
+                    icon.className = 'fas fa-pause';
+                    text.textContent = 'Pause';
+                    this.startSlideshow();
+                } else {
+                    icon.className = 'fas fa-play';
+                    text.textContent = 'Play';
+                    this.stopSlideshow();
+                }
+            }
+        }
+        
+        // Initialize slideshow when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ScreenshotSlideshow();
         });
     </script>
 </body>
