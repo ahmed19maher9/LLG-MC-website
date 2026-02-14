@@ -464,9 +464,9 @@
                         </li>
                     </ul>
                     
-                    <button class="w-full bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition">
-                        Download Free Version
-                    </button>
+                    <a href="https://github.com/ahmed19maher9/LLG-MC/releases" target="_blank" class="w-full bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition text-center block">
+                        Start Free Trial
+                    </a>
                 </div>
                 
                 <!-- Premium Plan -->
@@ -508,9 +508,11 @@
                         </li>
                     </ul>
                     
-                    <button class="w-full bg-white text-purple-600 py-3 rounded-lg font-semibold hover:bg-gray-100 transition">
-                        Start Free Trial
-                    </button>
+                    <a href="mailto:ahmedmaher5424@gmail.com?subject=LLG Media Center License Purchase&body=I would like to purchase a license for LLG Media Center Premium. Please provide me with payment instructions and license details." 
+                   onclick="handlePurchaseClick(event)" 
+                   class="w-full bg-white text-purple-600 py-3 rounded-lg font-semibold hover:bg-gray-100 transition text-center block cursor-pointer">
+                        Purchase a License
+                    </a>
                 </div>
             </div>
         </div>
@@ -987,6 +989,26 @@
         document.addEventListener('DOMContentLoaded', () => {
             new ScreenshotSlideshow();
         });
+        
+        // Handle purchase license click
+        function handlePurchaseClick(event) {
+            event.preventDefault();
+            
+            const email = 'ahmedmaher5424@gmail.com';
+            const subject = 'LLG Media Center License Purchase';
+            const body = 'I would like to purchase a license for LLG Media Center Premium. Please provide me with payment instructions and license details.';
+            
+            // Create mailto link
+            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Try to open mail client directly
+            window.location.href = mailtoLink;
+            
+            // Fallback: show alert with email details after a short delay
+            setTimeout(() => {
+                alert(`Please email us at: ${email}\n\nSubject: ${subject}\n\n${body}`);
+            }, 500);
+        }
     </script>
 </body>
 </html>
