@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLG Media Center - Comprehensive Media Player & Reader</title>
+    <meta name="description" content="A powerful media center application combining video/audio playback, book reading, torrent streaming, and web integration in one unified interface.">
+    <meta name="keywords" content="media player, video player, book reader, torrent streaming, VLC, PDF reader, YouTube integration">
+    <meta name="author" content="LLG Media Center">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="LLG Media Center - Comprehensive Media Player & Reader">
+    <meta property="og:description" content="A powerful media center application combining video/audio playback, book reading, torrent streaming, and web integration.">
+    <meta property="og:image" content="https://github.com/user-attachments/assets/09852197-4bbd-4599-a670-3ed80efb909a">
+    <meta property="og:url" content="https://ahmed19maher9.github.io/llg-mc/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LLG Media Center - Comprehensive Media Player & Reader">
+    <meta name="twitter:description" content="A powerful media center application combining video/audio playback, book reading, torrent streaming, and web integration.">
+    <meta name="twitter:image" content="https://github.com/user-attachments/assets/09852197-4bbd-4599-a670-3ed80efb909a">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .premium-badge {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        }
+        
+        .nav-sticky {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        /* Slideshow Styles */
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #000;
+        }
+        
+        .thumbnail {
+            cursor: pointer;
+            opacity: 0.6;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .thumbnail:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+        
+        .thumbnail.active {
+            opacity: 1;
+            border-color: #9333ea;
+            transform: scale(1.05);
+        }
+        
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="scroll-smooth">
+    
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-play-circle text-3xl text-purple-600"></i>
+                    <span class="text-xl font-bold text-gray-800">LLG Media Center</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link text-gray-700 hover:text-purple-600 transition">Home</a>
+                    <a href="#video" class="nav-link text-gray-700 hover:text-purple-600 transition">Video</a>
+                    <a href="#gallery" class="nav-link text-gray-700 hover:text-purple-600 transition">Gallery</a>
+                    <a href="#features" class="nav-link text-gray-700 hover:text-purple-600 transition">Features</a>
+                    <a href="#pricing" class="nav-link text-gray-700 hover:text-purple-600 transition">Pricing</a>
+                    <a href="#download" class="nav-link text-gray-700 hover:text-purple-600 transition">Download</a>
+                    <a href="#docs" class="nav-link text-gray-700 hover:text-purple-600 transition">Docs</a>
+                </div>
+                
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
+                <a href="#home" class="block py-2 text-gray-700 hover:text-purple-600 transition">Home</a>
+                <a href="#video" class="block py-2 text-gray-700 hover:text-purple-600 transition">Video</a>
+                <a href="#gallery" class="block py-2 text-gray-700 hover:text-purple-600 transition">Gallery</a>
+                <a href="#features" class="block py-2 text-gray-700 hover:text-purple-600 transition">Features</a>
+                <a href="#pricing" class="block py-2 text-gray-700 hover:text-purple-600 transition">Pricing</a>
+                <a href="#download" class="block py-2 text-gray-700 hover:text-purple-600 transition">Download</a>
+                <a href="#docs" class="block py-2 text-gray-700 hover:text-purple-600 transition">Docs</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="hero-gradient min-h-screen flex items-center relative overflow-hidden">
+        <div class="absolute inset-0">
+            <div class="absolute top-20 left-20 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float"></div>
+            <div class="absolute top-40 right-20 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 2s;"></div>
+            <div class="absolute -bottom-8 left-40 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-float" style="animation-delay: 4s;"></div>
+        </div>
+        
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-white">
+                    <h1 class="hero-title text-5xl md:text-6xl font-bold mb-6">
+                        LLG Media Center
+                    </h1>
+                    <p class="text-xl md:text-2xl mb-8 text-gray-200">
+                        Your comprehensive media solution combining video playback, book reading, torrent streaming, and web integration in one powerful application.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#download" class="bg-white text-purple-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition transform hover:scale-105">
+                            <i class="fas fa-download mr-2"></i>Download Now
+                        </a>
+                        <a href="#video" class="glass-effect text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:bg-opacity-20 transition transform hover:scale-105">
+                            <i class="fas fa-play-circle mr-2"></i>Watch Video
+                        </a>
+                    </div>
+                    
+                    <div class="mt-12 flex items-center space-x-8">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold">100K+</div>
+                            <div class="text-sm text-gray-300">Downloads</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold">4.8★</div>
+                            <div class="text-sm text-gray-300">User Rating</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold">50+</div>
+                            <div class="text-sm text-gray-300">Features</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative">
+                    <img src="https://github.com/user-attachments/assets/09852197-4bbd-4599-a670-3ed80efb909a" 
+                         alt="LLG Media Center Interface" 
+                         class="rounded-lg shadow-2xl w-full animate-float">
+                    <div class="absolute -bottom-6 -left-6 bg-white rounded-lg p-4 shadow-xl">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-check text-white"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold">Open Source</div>
+                                <div class="text-sm text-gray-600">AGPL v3 Licensed</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Marketing Video Section -->
+    <section id="video" class="py-20 bg-gradient-to-br from-gray-900 to-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">See LLG Media Center in Action</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Watch our comprehensive marketing video to discover all the powerful features and capabilities
+                </p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="relative rounded-2xl overflow-hidden shadow-2xl">
+                    <video 
+                        controls 
+                        poster="https://github.com/user-attachments/assets/09852197-4bbd-4599-a670-3ed80efb909a"
+                        class="w-full aspect-video bg-black"
+                        preload="metadata">
+                        <source src="videos/Unlocking the Power of LLG Media Center.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    
+                    <!-- Video overlay with play button for better UX -->
+                    <div id="video-overlay" class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center cursor-pointer hover:bg-opacity-30 transition-all duration-300">
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-white bg-opacity-90 rounded-full flex items-center justify-center mb-4 transform hover:scale-110 transition-transform duration-300">
+                                <i class="fas fa-play text-3xl text-purple-600 ml-1"></i>
+                            </div>
+                            <p class="text-white text-lg font-semibold">Click to play the marketing video</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video features highlight -->
+                <div class="grid md:grid-cols-3 gap-6 mt-12">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-video text-white"></i>
+                        </div>
+                        <h3 class="text-white font-semibold mb-2">HD Quality</h3>
+                        <p class="text-gray-400 text-sm">Crystal clear video showcasing all features</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-clock text-white"></i>
+                        </div>
+                        <h3 class="text-white font-semibold mb-2">Comprehensive Tour</h3>
+                        <p class="text-gray-400 text-sm">Complete overview of all capabilities</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <i class="fas fa-download text-white"></i>
+                        </div>
+                        <h3 class="text-white font-semibold mb-2">Easy to Follow</h3>
+                        <p class="text-gray-400 text-sm">Step-by-step feature demonstrations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Screenshot Gallery Section -->
+    <section id="gallery" class="py-20 bg-gradient-to-br from-gray-900 to-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 text-white">Application Screenshots</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    Take a tour of LLG Media Center's powerful interface and features
+                </p>
+            </div>
+            
+            <!-- Slideshow Container -->
+            <div class="relative max-w-6xl mx-auto">
+                <!-- Main Slideshow -->
+                <div class="relative bg-black rounded-2xl overflow-hidden shadow-2xl" style="padding-bottom: 56.25%;">
+                    <div id="slideshow-container" class="absolute inset-0">
+                        <!-- Slides will be dynamically inserted here -->
+                    </div>
+                    
+                    <!-- Navigation Arrows -->
+                    <button id="prev-slide" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-20 backdrop-blur-md text-white p-3 rounded-full hover:bg-opacity-30 transition-all duration-300 z-10">
+                        <i class="fas fa-chevron-left text-xl"></i>
+                    </button>
+                    <button id="next-slide" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-20 backdrop-blur-md text-white p-3 rounded-full hover:bg-opacity-30 transition-all duration-300 z-10">
+                        <i class="fas fa-chevron-right text-xl"></i>
+                    </button>
+                    
+                    <!-- Slide Counter -->
+                    <div class="absolute top-4 right-4 bg-black bg-opacity-50 text-white px-4 py-2 rounded-full text-sm font-medium">
+                        <span id="current-slide">1</span> / <span id="total-slides">10</span>
+                    </div>
+                </div>
+                
+                <!-- Thumbnail Navigation -->
+                <div class="mt-8 grid grid-cols-5 md:grid-cols-10 gap-2" id="thumbnail-container">
+                    <!-- Thumbnails will be dynamically inserted here -->
+                </div>
+                
+                <!-- Slideshow Controls -->
+                <div class="mt-6 flex justify-center items-center space-x-4">
+                    <button id="play-pause-btn" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition flex items-center space-x-2">
+                        <i class="fas fa-pause"></i>
+                        <span>Pause</span>
+                    </button>
+                    <div class="flex items-center space-x-2 text-white">
+                        <label for="speed-control" class="text-sm">Speed:</label>
+                        <select id="speed-control" class="bg-gray-700 text-white px-3 py-1 rounded border border-gray-600 focus:outline-none focus:border-purple-500">
+                            <option value="1000">Fast (1s)</option>
+                            <option value="2000">Normal (2s)</option>
+                            <option value="3000" selected>Slow (3s)</option>
+                            <option value="5000">Very Slow (5s)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Powerful Features</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Everything you need for a complete media experience in one unified interface
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Media Player Feature -->
+                <div class="bg-white rounded-xl p-8 card-hover">
+                    <div class="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-play-circle text-3xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Media Player</h3>
+                    <p class="text-gray-600 mb-4">
+                        VLC-powered playback with full codec support, drag-and-drop functionality, and advanced subtitle features.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Full codec support</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Subtitle synchronization</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Playlist management</li>
+                    </ul>
+                </div>
+                
+                <!-- Book Reader Feature -->
+                <div class="bg-white rounded-xl p-8 card-hover">
+                    <div class="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-book text-3xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Book Reader</h3>
+                    <p class="text-gray-600 mb-4">
+                        Advanced PDF reading with OCR support, text-to-speech, and interactive note-taking capabilities.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>PDF to book conversion</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>OCR text extraction</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Read-aloud functionality</li>
+                    </ul>
+                </div>
+                
+                <!-- Torrent Streaming Feature -->
+                <div class="bg-white rounded-xl p-8 card-hover">
+                    <div class="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-download text-3xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Torrent Streaming</h3>
+                    <p class="text-gray-600 mb-4">
+                        Real-time streaming while downloading with magnet link support and peer discovery.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Magnet link support</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Sequential download</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>DHT peer discovery</li>
+                    </ul>
+                </div>
+                
+                <!-- Web Integration Feature -->
+                <div class="bg-white rounded-xl p-8 card-hover">
+                    <div class="w-16 h-16 bg-red-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-globe text-3xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Web Integration</h3>
+                    <p class="text-gray-600 mb-4">
+                        Seamless integration with YouTube, Vimeo, and GoMovies with automatic subtitle extraction.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>YouTube integration</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Vimeo support</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Auto subtitle extraction</li>
+                    </ul>
+                </div>
+                
+                <!-- Application Hub Feature -->
+                <div class="bg-white rounded-xl p-8 card-hover">
+                    <div class="w-16 h-16 bg-indigo-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-th-large text-3xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Application Hub</h3>
+                    <p class="text-gray-600 mb-4">
+                        Centralized interface with modern gradient UI and task-based navigation for all media types.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Unified interface</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Task-based navigation</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Modern gradient UI</li>
+                    </ul>
+                </div>
+                
+                <!-- Premium Features -->
+                <div class="bg-white rounded-xl p-8 card-hover border-2 border-yellow-400 relative">
+                    <div class="absolute top-4 right-4 premium-badge text-white px-3 py-1 rounded-full text-sm font-semibold">
+                        Premium
+                    </div>
+                    <div class="w-16 h-16 bg-yellow-100 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-crown text-3xl feature-icon"></i>
+                    </div>
+                    <h3 class="text-2xl font-semibold mb-4">Premium Features</h3>
+                    <p class="text-gray-600 mb-4">
+                        Unlock advanced features including shared experiences, mobile version, and real-time chat.
+                    </p>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Shared experiences</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Mobile version</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i>Video chat support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Choose Your Plan</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Start with our free version or unlock premium features for the ultimate media experience
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Free Plan -->
+                <div class="bg-white rounded-2xl shadow-xl p-8 border-2 border-gray-200">
+                    <div class="text-center mb-8">
+                        <h3 class="text-3xl font-bold mb-2">Free</h3>
+                        <div class="text-5xl font-bold mb-4">$0</div>
+                        <p class="text-gray-600">Perfect for personal use</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Complete media player with VLC integration</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Advanced book reader with OCR support</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Torrent streaming capabilities</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>YouTube, Vimeo & GoMovies integration</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Subtitle support and translation</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                            <span>Application hub with modern UI</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="https://github.com/ahmed19maher9/LLG-MC/releases" target="_blank" class="w-full bg-gray-100 text-gray-800 py-3 rounded-lg font-semibold hover:bg-gray-200 transition text-center block">
+                        Start Free Trial
+                    </a>
+                </div>
+                
+                <!-- Premium Plan -->
+                <div class="bg-gradient-to-br from-purple-600 to-blue-600 rounded-2xl shadow-xl p-8 text-white relative transform scale-105">
+                    <div class="absolute top-4 right-4 bg-yellow-400 text-gray-900 px-3 py-1 rounded-full text-sm font-semibold">
+                        Most Popular
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <h3 class="text-3xl font-bold mb-2">Premium</h3>
+                        <div class="text-5xl font-bold mb-4">$9.99<span class="text-lg font-normal">/month</span></div>
+                        <p class="text-gray-200">Ultimate media experience</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-300 mt-1 mr-3"></i>
+                            <span>Everything in Free version</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-300 mt-1 mr-3"></i>
+                            <span>Shared cinematic experiences</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-300 mt-1 mr-3"></i>
+                            <span>Shared reading sessions</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-300 mt-1 mr-3"></i>
+                            <span>Mobile version access</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-300 mt-1 mr-3"></i>
+                            <span>Text, voice & video chat</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-green-300 mt-1 mr-3"></i>
+                            <span>Priority customer support</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="mailto:ahmedmaher5424@gmail.com?subject=LLG Media Center License Purchase&body=I would like to purchase a license for LLG Media Center Premium. Please provide me with payment instructions and license details." 
+                   onclick="handlePurchaseClick(event)" 
+                   class="w-full bg-white text-purple-600 py-3 rounded-lg font-semibold hover:bg-gray-100 transition text-center block cursor-pointer">
+                        Purchase a License
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Download Section -->
+    <section id="download" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Download LLG Media Center</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Get started with the most comprehensive media center application
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- System Requirements -->
+                <div class="bg-white rounded-xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">System Requirements</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-microchip text-purple-600 mt-1 mr-4"></i>
+                            <div>
+                                <div class="font-semibold">Operating System</div>
+                                <div class="text-gray-600">Windows 10/11 (Primary), may work on others</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-java text-purple-600 mt-1 mr-4"></i>
+                            <div>
+                                <div class="font-semibold">Java Runtime</div>
+                                <div class="text-gray-600">Java 21 or higher</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-memory text-purple-600 mt-1 mr-4"></i>
+                            <div>
+                                <div class="font-semibold">Memory</div>
+                                <div class="text-gray-600">4GB RAM minimum, 8GB recommended</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <i class="fas fa-hdd text-purple-600 mt-1 mr-4"></i>
+                            <div>
+                                <div class="font-semibold">Disk Space</div>
+                                <div class="text-gray-600">2GB free space required</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Installation Instructions -->
+                <div class="bg-white rounded-xl p-8">
+                    <h3 class="text-2xl font-bold mb-6">Installation Instructions</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="flex">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-semibold">
+                                1
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">Prerequisites</div>
+                                <div class="text-gray-600">Ensure Java 21 is installed and JAVA_HOME is set. Install Maven for building from source.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-semibold">
+                                2
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">Download</div>
+                                <div class="text-gray-600">Clone the repository or download the latest release from GitHub.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-semibold">
+                                3
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">Build</div>
+                                <div class="text-gray-600">Run <code class="bg-gray-100 px-2 py-1 rounded">mvn clean compile</code> to build the application.</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-semibold">
+                                4
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">Run</div>
+                                <div class="text-gray-600">Execute <code class="bg-gray-100 px-2 py-1 rounded">mvn exec:java -Dexec.mainClass="vlcj.llg_mc.App"</code></div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex">
+                            <div class="flex-shrink-0 w-8 h-8 bg-purple-600 text-white rounded-full flex items-center justify-center font-semibold">
+                                5
+                            </div>
+                            <div class="ml-4">
+                                <div class="font-semibold">Alternative</div>
+                                <div class="text-gray-600">Build JAR with <code class="bg-gray-100 px-2 py-1 rounded">mvn clean package</code> and run with <code class="bg-gray-100 px-2 py-1 rounded">java -jar target/llg-mc-0.0.1-SNAPSHOT.jar</code></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download Buttons -->
+            <div class="text-center mt-12">
+                <div class="inline-flex flex-col sm:flex-row gap-4">
+                    <a href="https://github.com/ahmed19maher9/LLG-MC/releases" target="_blank" class="bg-purple-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-purple-700 transition transform hover:scale-105">
+                        <i class="fab fa-github mr-2"></i>Download from GitHub
+                    </a>
+                    <a href="https://github.com/ahmed19maher9/LLG-MC" target="_blank" class="bg-gray-800 text-white px-8 py-4 rounded-lg font-semibold hover:bg-gray-900 transition transform hover:scale-105">
+                        <i class="fas fa-code-branch mr-2"></i>View Source Code
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Documentation Section -->
+    <section id="docs" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4">Documentation & Resources</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Everything you need to get the most out of LLG Media Center
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <a href="https://github.com/ahmed19maher9/LLG-MC/blob/main/README.md" target="_blank" class="bg-white rounded-xl p-6 shadow-lg card-hover group">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-200 transition">
+                        <i class="fas fa-book-open text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Complete Guide</h3>
+                    <p class="text-gray-600">Comprehensive documentation covering all features and usage instructions.</p>
+                </a>
+                
+                <a href="https://github.com/ahmed19maher9/LLG-MC/issues" target="_blank" class="bg-white rounded-xl p-6 shadow-lg card-hover group">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-200 transition">
+                        <i class="fas fa-life-ring text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Support & Issues</h3>
+                    <p class="text-gray-600">Get help, report bugs, and request features through GitHub Issues.</p>
+                </a>
+                
+                <a href="https://github.com/ahmed19maher9/LLG-MC/blob/main/LICENSE.txt" target="_blank" class="bg-white rounded-xl p-6 shadow-lg card-hover group">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-200 transition">
+                        <i class="fas fa-balance-scale text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">License</h3>
+                    <p class="text-gray-600">Open source under AGPL v3 license. Free to use and modify.</p>
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <i class="fas fa-play-circle text-2xl text-purple-400"></i>
+                        <span class="text-xl font-bold">LLG Media Center</span>
+                    </div>
+                    <p class="text-gray-400">
+                        Your comprehensive media solution for video, audio, books, and web content.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#features" class="hover:text-white transition">Features</a></li>
+                        <li><a href="#pricing" class="hover:text-white transition">Pricing</a></li>
+                        <li><a href="#download" class="hover:text-white transition">Download</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#docs" class="hover:text-white transition">Documentation</a></li>
+                        <li><a href="https://github.com/ahmed19maher9/LLG-MC/issues" target="_blank" class="hover:text-white transition">Support</a></li>
+                        <li><a href="https://github.com/ahmed19maher9/LLG-MC" target="_blank" class="hover:text-white transition">GitHub</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/ahmed19maher9/LLG-MC" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://gitter.im/LLG-MC/community" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition">
+                            <i class="fab fa-gitter"></i>
+                        </a>
+                        <a href="https://4fund.com/tsu72s" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-gray-700 transition">
+                            <i class="fas fa-heart"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 LLG Media Center. Licensed under AGPL v3. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking on a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-sticky', 'shadow-lg');
+            } else {
+                navbar.classList.remove('nav-sticky', 'shadow-lg');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Apply fade-in animation to cards
+        document.querySelectorAll('.card-hover').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+        
+        // Download button click tracking
+        document.querySelectorAll('a[href*="download"], a[href*="github.com/ahmed19maher9/LLG-MC/releases"]').forEach(button => {
+            button.addEventListener('click', () => {
+                console.log('Download button clicked');
+                // Add analytics tracking here if needed
+            });
+        });
+        
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+        
+        // Slideshow functionality
+        class ScreenshotSlideshow {
+            constructor() {
+                this.images = [
+                    'images/130.png',
+                    'images/131.png',
+                    'images/132.png',
+                    'images/133.png',
+                    'images/134.png',
+                    'images/135.png',
+                    'images/136.png',
+                    'images/137.png',
+                    'images/138.png',
+                    'images/139.png',
+                    'images/140.png',
+                    'images/141.png',
+                    'images/142.png',
+                    'images/143.png'
+                ];
+                
+                this.currentIndex = 0;
+                this.isPlaying = true;
+                this.intervalId = null;
+                this.slideSpeed = 3000;
+                
+                this.init();
+            }
+            
+            init() {
+                this.createSlides();
+                this.createThumbnails();
+                this.setupEventListeners();
+                this.updateSlideCounter();
+                this.startSlideshow();
+            }
+            
+            createSlides() {
+                const container = document.getElementById('slideshow-container');
+                
+                this.images.forEach((imageSrc, index) => {
+                    const slide = document.createElement('div');
+                    slide.className = `slide ${index === 0 ? 'active' : ''}`;
+                    slide.innerHTML = `<img src="${imageSrc}" alt="Screenshot ${index + 1}" loading="lazy">`;
+                    container.appendChild(slide);
+                });
+                
+                this.slides = container.querySelectorAll('.slide');
+            }
+            
+            createThumbnails() {
+                const thumbnailContainer = document.getElementById('thumbnail-container');
+                
+                this.images.forEach((imageSrc, index) => {
+                    const thumbnail = document.createElement('div');
+                    thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+                    thumbnail.innerHTML = `<img src="${imageSrc}" alt="Thumbnail ${index + 1}" loading="lazy">`;
+                    thumbnail.addEventListener('click', () => this.goToSlide(index));
+                    thumbnailContainer.appendChild(thumbnail);
+                });
+                
+                this.thumbnails = thumbnailContainer.querySelectorAll('.thumbnail');
+            }
+            
+            setupEventListeners() {
+                // Navigation buttons
+                document.getElementById('prev-slide').addEventListener('click', () => this.previousSlide());
+                document.getElementById('next-slide').addEventListener('click', () => this.nextSlide());
+                
+                // Play/Pause button
+                const playPauseBtn = document.getElementById('play-pause-btn');
+                playPauseBtn.addEventListener('click', () => this.togglePlayPause());
+                
+                // Speed control
+                document.getElementById('speed-control').addEventListener('change', (e) => {
+                    this.slideSpeed = parseInt(e.target.value);
+                    if (this.isPlaying) {
+                        this.stopSlideshow();
+                        this.startSlideshow();
+                    }
+                });
+                
+                // Keyboard navigation
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowLeft') this.previousSlide();
+                    if (e.key === 'ArrowRight') this.nextSlide();
+                    if (e.key === ' ') {
+                        e.preventDefault();
+                        this.togglePlayPause();
+                    }
+                });
+                
+                // Touch/swipe support for mobile
+                let touchStartX = 0;
+                let touchEndX = 0;
+                
+                const slideshowContainer = document.getElementById('slideshow-container');
+                
+                slideshowContainer.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                });
+                
+                slideshowContainer.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    this.handleSwipe();
+                });
+                
+                this.handleSwipe = () => {
+                    if (touchEndX < touchStartX - 50) this.nextSlide();
+                    if (touchEndX > touchStartX + 50) this.previousSlide();
+                };
+            }
+            
+            updateSlideCounter() {
+                document.getElementById('current-slide').textContent = this.currentIndex + 1;
+                document.getElementById('total-slides').textContent = this.images.length;
+            }
+            
+            showSlide(index) {
+                // Hide current slide
+                this.slides[this.currentIndex].classList.remove('active');
+                this.thumbnails[this.currentIndex].classList.remove('active');
+                
+                // Show new slide
+                this.currentIndex = index;
+                this.slides[this.currentIndex].classList.add('active');
+                this.thumbnails[this.currentIndex].classList.add('active');
+                
+                this.updateSlideCounter();
+            }
+            
+            nextSlide() {
+                const nextIndex = (this.currentIndex + 1) % this.images.length;
+                this.showSlide(nextIndex);
+            }
+            
+            previousSlide() {
+                const prevIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+                this.showSlide(prevIndex);
+            }
+            
+            goToSlide(index) {
+                this.showSlide(index);
+            }
+            
+            startSlideshow() {
+                if (this.isPlaying) {
+                    this.intervalId = setInterval(() => this.nextSlide(), this.slideSpeed);
+                }
+            }
+            
+            stopSlideshow() {
+                if (this.intervalId) {
+                    clearInterval(this.intervalId);
+                    this.intervalId = null;
+                }
+            }
+            
+            togglePlayPause() {
+                this.isPlaying = !this.isPlaying;
+                const playPauseBtn = document.getElementById('play-pause-btn');
+                const icon = playPauseBtn.querySelector('i');
+                const text = playPauseBtn.querySelector('span');
+                
+                if (this.isPlaying) {
+                    icon.className = 'fas fa-pause';
+                    text.textContent = 'Pause';
+                    this.startSlideshow();
+                } else {
+                    icon.className = 'fas fa-play';
+                    text.textContent = 'Play';
+                    this.stopSlideshow();
+                }
+            }
+        }
+        
+        // Initialize slideshow when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ScreenshotSlideshow();
+        });
+        
+        // Video overlay functionality
+        const videoOverlay = document.getElementById('video-overlay');
+        const video = document.querySelector('video');
+        
+        if (videoOverlay && video) {
+            videoOverlay.addEventListener('click', () => {
+                videoOverlay.style.display = 'none';
+                video.play();
+            });
+            
+            video.addEventListener('play', () => {
+                videoOverlay.style.display = 'none';
+            });
+            
+            video.addEventListener('pause', () => {
+                if (video.currentTime === 0 || video.ended) {
+                    videoOverlay.style.display = 'flex';
+                }
+            });
+            
+            video.addEventListener('ended', () => {
+                videoOverlay.style.display = 'flex';
+            });
+        }
+        
+        // Handle purchase license click
+        function handlePurchaseClick(event) {
+            event.preventDefault();
+            
+            const email = 'ahmedmaher5424@gmail.com';
+            const subject = 'LLG Media Center License Purchase';
+            const body = 'I would like to purchase a license for LLG Media Center Premium. Please provide me with payment instructions and license details.';
+            
+            // Create mailto link
+            const mailtoLink = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Try to open mail client directly
+            window.location.href = mailtoLink;
+            
+            // Fallback: show alert with email details after a short delay
+            setTimeout(() => {
+                alert(`Please email us at: ${email}\n\nSubject: ${subject}\n\n${body}`);
+            }, 500);
+        }
+    </script>
+</body>
+</html>

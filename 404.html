@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found - LLG Media Center</title>
+    <meta name="description" content="The page you're looking for doesn't exist. Return to LLG Media Center homepage.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+        }
+        
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="min-h-screen hero-gradient flex items-center">
+    <div class="container mx-auto px-4">
+        <div class="text-center text-white">
+            <!-- 404 Animation -->
+            <div class="mb-8 animate-float">
+                <div class="text-9xl font-bold opacity-50">404</div>
+            </div>
+            
+            <!-- Error Message -->
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">
+                Oops! Page Not Found
+            </h1>
+            
+            <p class="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto">
+                The page you're looking for seems to have vanished into the digital void. 
+                Let's get you back to enjoying your media experience.
+            </p>
+            
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/" class="bg-white text-purple-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition transform hover:scale-105">
+                    <i class="fas fa-home mr-2"></i>Go Home
+                </a>
+                <a href="#features" class="bg-transparent border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition transform hover:scale-105">
+                    <i class="fas fa-star mr-2"></i>View Features
+                </a>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                <a href="#features" class="text-gray-300 hover:text-white transition">
+                    <i class="fas fa-play-circle text-2xl mb-2"></i>
+                    <div class="text-sm">Features</div>
+                </a>
+                <a href="#pricing" class="text-gray-300 hover:text-white transition">
+                    <i class="fas fa-crown text-2xl mb-2"></i>
+                    <div class="text-sm">Pricing</div>
+                </a>
+                <a href="#download" class="text-gray-300 hover:text-white transition">
+                    <i class="fas fa-download text-2xl mb-2"></i>
+                    <div class="text-sm">Download</div>
+                </a>
+                <a href="#docs" class="text-gray-300 hover:text-white transition">
+                    <i class="fas fa-book text-2xl mb-2"></i>
+                    <div class="text-sm">Docs</div>
+                </a>
+            </div>
+            
+            <!-- Help Text -->
+            <div class="mt-12 text-gray-300">
+                <p class="mb-2">Need help? <a href="https://github.com/ahmed19maher9/LLG-MC/issues" target="_blank" class="text-white hover:underline">Visit our support page</a></p>
+                <p>Or <a href="mailto:support@llgmc.com" class="text-white hover:underline">contact us directly</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Auto-redirect after 30 seconds
+        setTimeout(() => {
+            window.location.href = '/';
+        }, 30000);
+        
+        // Add some interactivity
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    link.style.transform = 'scale(1.05)';
+                });
+                link.addEventListener('mouseleave', () => {
+                    link.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
