@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlocking the Power of LLG Media Center - Watch Video</title>
+    <meta name="description" content="Watch our comprehensive marketing video to discover all the powerful features and capabilities of LLG Media Center. Complete overview of video playback, book reading, torrent streaming, and web integration.">
+    <meta name="keywords" content="LLG Media Center, media player, video player, book reader, torrent streaming, VLC integration, PDF reader, YouTube integration">
+    <meta name="author" content="LLG Media Center">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Unlocking the Power of LLG Media Center - Watch Video">
+    <meta property="og:description" content="Watch our comprehensive marketing video to discover all the powerful features and capabilities of LLG Media Center.">
+    <meta property="og:image" content="https://github.com/user-attachments/assets/09852197-4bbd-4599-a670-3ed80efb909a">
+    <meta property="og:url" content="https://ahmed19maher9.github.io/LLG-MC-website/watch.html">
+    <meta property="og:type" content="video.other">
+    <meta property="og:video" content="https://ahmed19maher9.github.io/LLG-MC-website/videos/Unlocking%20the%20Power%20of%20LLG%20Media%20Center_max_quality.mp4">
+    <meta property="og:video:type" content="video/mp4">
+    <meta property="og:video:width" content="1920">
+    <meta property="og:video:height" content="1080">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="player">
+    <meta name="twitter:title" content="Unlocking the Power of LLG Media Center - Watch Video">
+    <meta name="twitter:description" content="Watch our comprehensive marketing video to discover all the powerful features and capabilities of LLG Media Center.">
+    <meta name="twitter:image" content="https://github.com/user-attachments/assets/09852197-4bbd-4599-a670-3ed80efb909a">
+    <meta name="twitter:player" content="https://ahmed19maher9.github.io/LLG-MC-website/watch.html">
+    <meta name="twitter:player:width" content="1920">
+    <meta name="twitter:player:height" content="1080">
+    
+    <!-- VideoObject Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": "Unlocking the Power of LLG Media Center",
+        "description": "A comprehensive marketing video showcasing all the powerful features and capabilities of LLG Media Center, including video playback, book reading, torrent streaming, and web integration.",
+        "thumbnailUrl": "https://github.com/user-attachments/assets/09852197-4bbd-4599-a670-3ed80efb909a",
+        "uploadDate": "2024-01-01T00:00:00Z",
+        "duration": "PT1M41S",
+        "contentUrl": "https://ahmed19maher9.github.io/LLG-MC-website/videos/Unlocking%20the%20Power%20of%20LLG%20Media%20Center_max_quality.mp4",
+        "embedUrl": "https://ahmed19maher9.github.io/LLG-MC-website/watch.html",
+        "publisher": {
+            "@type": "Organization",
+            "name": "LLG Media Center",
+            "url": "https://ahmed19maher9.github.io/LLG-MC-website/"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "LLG Media Center"
+        }
+    }
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            min-height: 100vh;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #000;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .back-button {
+            position: fixed;
+            top: 2rem;
+            left: 2rem;
+            z-index: 50;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .video-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-top: 2rem;
+            color: white;
+        }
+        
+        .feature-badge {
+            background: rgba(139, 92, 246, 0.2);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            color: #e9d5ff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .back-button {
+                top: 1rem;
+                left: 1rem;
+                padding: 0.5rem 1rem;
+            }
+            
+            .video-info {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Back to Home Button -->
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Home</span>
+    </a>
+    
+    <!-- Main Content -->
+    <div class="container mx-auto px-4 py-8">
+        <!-- Video Title Section -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+                Unlocking the Power of LLG Media Center
+            </h1>
+            <p class="text-xl text-gray-200 max-w-3xl mx-auto">
+                Watch our comprehensive marketing video to discover all the powerful features and capabilities
+            </p>
+        </div>
+        
+        <!-- Video Player -->
+        <div class="video-container">
+            <video 
+                id="main-video"
+                controls 
+                poster="https://github.com/user-attachments/assets/09852197-4bbd-4599-a670-3ed80efb909a"
+                preload="metadata"
+                autoplay>
+                <source src="videos/Unlocking the Power of LLG Media Center_max_quality.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <!-- Video Information -->
+        <div class="video-info">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h2 class="text-2xl font-bold mb-4 text-white">About This Video</h2>
+                    <p class="text-gray-200 mb-6">
+                        This comprehensive marketing video showcases the complete feature set of LLG Media Center, 
+                        demonstrating how our unified media solution can transform your digital entertainment experience.
+                    </p>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-lg font-semibold mb-3 text-white">Features Covered:</h3>
+                        <div class="flex flex-wrap">
+                            <span class="feature-badge">Media Player</span>
+                            <span class="feature-badge">Book Reader</span>
+                            <span class="feature-badge">Torrent Streaming</span>
+                            <span class="feature-badge">Web Integration</span>
+                            <span class="feature-badge">VLC Integration</span>
+                            <span class="feature-badge">PDF Reader</span>
+                            <span class="feature-badge">YouTube Support</span>
+                            <span class="feature-badge">Subtitle Support</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <h2 class="text-2xl font-bold mb-4 text-white">Video Details</h2>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-gray-300">Duration:</span>
+                            <span class="text-white font-medium">1:41</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-300">Quality:</span>
+                            <span class="text-white font-medium">HD 1080p</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-300">Format:</span>
+                            <span class="text-white font-medium">MP4</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-300">Size:</span>
+                            <span class="text-white font-medium">High Quality</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <a href="index.html#download" class="bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition inline-flex items-center gap-2">
+                            <i class="fas fa-download"></i>
+                            Download LLG Media Center
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Related Actions -->
+        <div class="text-center mt-12">
+            <div class="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg border border-white border-opacity-20 rounded-xl p-8">
+                <h2 class="text-2xl font-bold mb-4 text-white">Ready to Get Started?</h2>
+                <p class="text-gray-200 mb-6 max-w-2xl mx-auto">
+                    Experience all the features shown in this video by downloading LLG Media Center today.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="index.html#download" class="bg-white text-purple-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition transform hover:scale-105">
+                        <i class="fas fa-download mr-2"></i>Download Now
+                    </a>
+                    <a href="index.html#features" class="glass-effect text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:bg-opacity-20 transition transform hover:scale-105">
+                        <i class="fas fa-info-circle mr-2"></i>Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- JavaScript for Video Enhancement -->
+    <script>
+        // Video analytics and engagement tracking
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('main-video');
+            
+            // Track video engagement
+            let watchTime = 0;
+            let startTime = Date.now();
+            
+            video.addEventListener('timeupdate', function() {
+                watchTime = video.currentTime;
+            });
+            
+            video.addEventListener('ended', function() {
+                console.log('Video completed. Total watch time:', watchTime);
+                // You can add analytics tracking here
+            });
+            
+            // Keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.target.tagName.toLowerCase() !== 'input') {
+                    switch(e.key) {
+                        case ' ':
+                            e.preventDefault();
+                            video.paused ? video.play() : video.pause();
+                            break;
+                        case 'ArrowLeft':
+                            video.currentTime = Math.max(0, video.currentTime - 10);
+                            break;
+                        case 'ArrowRight':
+                            video.currentTime = Math.min(video.duration, video.currentTime + 10);
+                            break;
+                        case 'f':
+                        case 'F':
+                            if (video.requestFullscreen) {
+                                video.requestFullscreen();
+                            }
+                            break;
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
